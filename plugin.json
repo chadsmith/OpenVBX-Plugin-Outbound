@@ -1,0 +1,12 @@
+{
+	"name" : "Outbound Flows",
+	"author" : "Chad Smith <chad@nospam.me>",
+	"description" : "Lets you call out with a flow or start calls and messages (to someone else) within a flow.",
+	"url" : "http://twitter.com/chadsmith",
+	"links" : [{
+		"menu" : "Outbound",
+		"url" : "outbound",
+		"script" : "outbound.php",
+		"label" : "Start Flow"
+	}]
+}
