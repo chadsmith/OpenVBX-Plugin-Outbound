@@ -18,7 +18,7 @@ else{
 
 require_once(APPPATH . 'libraries/twilio.php');
 $ci->twilio = new TwilioRestClient($ci->twilio_sid, $ci->twilio_token, $ci->twilio_endpoint);
-$response = $ci->twilio->request("Accounts/{$ci->twilio_sid}/SMS/Messages", 'POST', array('To' => $recipient, 'From' => $number, 'Body' => $message));
+$ci->twilio->request("Accounts/{$ci->twilio_sid}/SMS/Messages", 'POST', array('To' => $recipient, 'From' => $number, 'Body' => $message));
 
 $response = new Response();
 
