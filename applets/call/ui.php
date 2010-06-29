@@ -29,7 +29,7 @@
 		</fieldset>
 		<h3>Recipient</h3>
 <?php if(AppletInstance::getFlowType() == 'sms'): ?>
-		<p>Use %sender% to substitute the sender's number or %number% for the number texted.</p>
+		<p>Use %sender% to substitute the sender's number.</p>
 <?php endif; ?>
 		<fieldset class="vbx-input-container">
 			<input type="text" name="recipient" class="medium" value="<?php echo AppletInstance::getValue('recipient'); ?>" />
