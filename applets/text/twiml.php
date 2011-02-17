@@ -13,8 +13,9 @@ if(AppletInstance::getFlowType() == 'voice')
 else
 	$message = str_replace(array('%sender%', '%number%', '%body%'), array($from, $to, $_REQUEST['Body']), $message);
 
+require_once(APPPATH . 'libraries/twilio.php');
 $ci->twilio = new TwilioRestClient($ci->twilio_sid, $ci->twilio_token, $ci->twilio_endpoint);
-$ci->twilio->request("Accounts/{$ci->twilio_sid}/SMS/Messages", 'POST', array('To' => $recipient, 'From' => $number, 'Body' => $message));
+$ci->twilio->request("Accounts/{$ci->twilio_sid}/SMS/Messages", 'POST', array('From' => $number, 'To' => $recipient, 'Body' => $message));
 
 $response = new Response();
 
