@@ -6,7 +6,7 @@
 		require_once(APPPATH . 'libraries/twilio.php');
 		$ci->twilio = new TwilioRestClient($ci->twilio_sid, $ci->twilio_token, $ci->twilio_endpoint);
 		if($id&&($flow = OpenVBX::getFlows(array('id' => $id, 'tenant_id' => $tenant_id)))&&$flow[0]->values['data'])
-			$ci->twilio->request("Accounts/{$this->twilio_sid}/Calls", 'POST', array('Caller' => $number, 'Called' => normalize_phone_to_E164($_POST['recipient']), 'Url' => site_url('twiml/start/voice/'.$id)));
+			$ci->twilio->request("Accounts/{$this->twilio_sid}/Calls", 'POST', array('From' => $number, 'To' => normalize_phone_to_E164($_POST['recipient']), 'Url' => site_url('twiml/start/voice/'.$id)));
 	}
 	$flows = OpenVBX::getFlows(array('tenant_id' => $tenant_id));
 ?>
