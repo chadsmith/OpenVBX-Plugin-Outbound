@@ -5,5 +5,6 @@ $(function() {
 		$form.slideToggle();
 		return false;
 	});
-	$('.time').timePicker({ step: 05, show24Hours: false });
+	$('.date').datepicker();
+	$('.time').timepicker({ showPeriod: true });
 })

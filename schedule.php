@@ -40,7 +40,9 @@
 		}
 	}
 	$flows = OpenVBX::getFlows(array('tenant_id' => $tenant_id));
+	OpenVBX::addJS('jquery-ui-1.7.3.custom.min.js');
 	OpenVBX::addJS('schedule.js');
+	OpenVBX::addCSS('jquery-ui-1.7.3.custom.css');
 ?>
 <style>
 	.vbx-schedule form {
@@ -79,7 +81,7 @@
 				</p>
 				<p>
 					<label class="field-label">Date<br/>
-						<input type="text" name="date" class="medium" value="<?php echo date('j-M-Y'); ?>" />
+						<input type="text" name="date" class="date medium" value="<?php echo date('m/d/Y'); ?>" />
 					</label>
 				</p>
 				<p>
@@ -119,7 +121,7 @@
 				</p>
 				<p>
 					<label class="field-label">Date<br/>
-						<input type="text" name="date" class="medium" value="<?php echo date('j-M-Y'); ?>" />
+						<input type="text" name="date" class="date medium" value="<?php echo date('m/d/Y'); ?>" />
 					</label>
 				</p>
 				<p>
