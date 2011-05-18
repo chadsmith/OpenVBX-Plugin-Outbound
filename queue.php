@@ -15,7 +15,7 @@
 					$twilio->request("Accounts/{$twilio_sid}/SMS/Messages", 'POST', array('From' => $event->callerId, 'To' => $event->number, 'Body' => $event->data->message));
 				else
 					$twilio->request("Accounts/{$twilio_sid}/Calls", 'POST', array('From' => $event->callerId, 'To' => $event->number, 'Url' => site_url(($tenant->url_prefix ? $tenant->url_prefix . '/' : '') . 'twiml/start/voice/' . $event->data->id)));
-				 $ci->db->delete('queue', array('id' => $event->id));
+				 $ci->db->delete('outbound_queue', array('id' => $event->id));
 			}
 		}
 		die;
