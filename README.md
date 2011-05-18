@@ -1,6 +1,6 @@
 # Outbound Flows for OpenVBX
 
-This plugin allows you to call out using flows or trigger outgoing calls or texts within another flow.
+This plugin allows you to call out using flows, schedule calls and messages, or trigger outgoing calls or texts within another flow.
 
 ## Installation
 
@@ -19,6 +19,24 @@ Once installed, OUTBOUND will appear in the OpenVBX sidebar
 3. Select the Flow to call with
 4. Select the caller ID (OpenVBX number) to call with
 
+### Schedule an outgoing call
+
+1. Click Schedule Flow in the OpenVBX sidebar
+2. Click Add Call
+3. Enter the number to call
+4. Enter the date and time to call
+5. Select the Flow to call with
+6. Select the caller ID (OpenVBX number) to call with
+
+### Schedule a text message
+
+1. Click Schedule Flow in the OpenVBX sidebar
+2. Click Add SMS
+3. Enter the number to call
+4. Enter the date and time to call
+5. Select the caller ID (OpenVBX number) to send with
+6. Enter the message to text
+
 ### Trigger a call to another number from a Flow
 
 1. Add the New Call applet to a Call or SMS flow
@@ -34,3 +52,19 @@ Once installed, OUTBOUND will appear in the OpenVBX sidebar
 3. Enter the message to text*
 
 `* Use %caller% or %sender% to substitute the caller's number, %number% for the number called or %body% for the message body`
+
+## OpenVBX requirements ##
+
+This plugin requires a modified version of OpenVBX to allow for plugin hooks, subpages and cron jobs. Download the modified version from my fork [here][2].
+
+[2]: https://github.com/chadsmith/OpenVBX
+
+## Set Cron Job ##
+
+A cron job must be set to send scheduled calls and messages every 5 minutes. If you have access to crontab, enter:
+
+`*/5  * * * * /usr/bin/php5 /PATH_TO_OPENVBX/plugins/outbound/cron.php`
+
+If using cron source or a poorman's cron use:
+
+`http://YOUR_DOMAIN/hook/outbound/queue`
