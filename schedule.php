@@ -6,12 +6,13 @@
 	foreach($queries as $query)
 		if(trim($query))
 			$ci->db->query($query);
-	if($_POST['type']) {
+	if(!empty($_POST['number'])) {
 		$type = $_POST['type'];
 		$number = normalize_phone_to_E164($_POST['number']);
 		$callerId = normalize_phone_to_E164($_POST['callerId']);
 		$time = strtotime($_POST['date'] . ' ' . $_POST['time']);
-		if('sms' == $type && $_POST['message']) {
+		if('sms' == $type && !empty($_POST['message'])) {
+			if($number)
 				$ci->db->insert('outbound_queue', array(
 					'tenant' => $tenant_id,
 					'number' => $number,
@@ -25,7 +26,7 @@
 		}
 		elseif('call' == $type) {
 			$flow = OpenVBX::getFlows(array('id' => $_POST['flow'], 'tenant_id' => $tenant_id));
-			if($flow && $flow[0]->values['data'])
+			if($number && $flow && $flow[0]->values['data'])
 				$ci->db->insert('outbound_queue', array(
 					'tenant' => $tenant_id,
 					'number' => $number,

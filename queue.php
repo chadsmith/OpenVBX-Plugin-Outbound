@@ -12,9 +12,17 @@
 				$twilio_token = $ci->settings->get('twilio_token', $event->tenant);
 				$twilio = new TwilioRestClient($twilio_sid, $twilio_token, $ci->twilio_endpoint);
 				if('sms' == $event->type)
-					$twilio->request("Accounts/{$twilio_sid}/SMS/Messages", 'POST', array('From' => $event->callerId, 'To' => $event->number, 'Body' => $event->data->message));
+					$twilio->request("Accounts/{$twilio_sid}/SMS/Messages", 'POST', array(
+						'From' => $event->callerId,
+						'To' => $event->number,
+						'Body' => $event->data->message
+					));
 				else
-					$twilio->request("Accounts/{$twilio_sid}/Calls", 'POST', array('From' => $event->callerId, 'To' => $event->number, 'Url' => site_url(($tenant->url_prefix ? $tenant->url_prefix . '/' : '') . 'twiml/start/voice/' . $event->data->id)));
+					$twilio->request("Accounts/{$twilio_sid}/Calls", 'POST', array(
+						'From' => $event->callerId,
+						'To' => $event->number,
+						'Url' => site_url(($tenant->url_prefix ? $tenant->url_prefix . '/' : '') . 'twiml/start/voice/' . $event->data->id)
+					));
 				 $ci->db->delete('outbound_queue', array('id' => $event->id));
 			}
 		}
@@ -26,8 +34,8 @@
 	foreach($queries as $query)
 		if(trim($query))
 			$ci->db->query($query);
-	if($remove = intval($_POST['remove'])) {
-		$ci->db->delete('outbound_queue', array('id' => $remove, 'tenant' => $tenant_id));
+	if(!empty($_POST['remove'])) {
+		$ci->db->delete('outbound_queue', array('id' => intval($_POST['remove']), 'tenant' => $tenant_id));
 		die;
 	}
 	$events = $ci->db->query(sprintf('SELECT id, number, type, time, callerId, data FROM outbound_queue WHERE tenant=%d ORDER BY time ASC', $tenant_id))->result();

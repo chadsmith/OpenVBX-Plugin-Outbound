@@ -2,17 +2,22 @@
 	$user = OpenVBX::getCurrentUser();
 	$tenant_id = $user->values['tenant_id'];
 	$ci =& get_instance();
-	if(($recipient = $_POST['recipient']) && ($number = $_POST['number']) && ($id = intval($_POST['flow']))) {
+	if(!empty($_POST['recipient'])) {
 		require_once(APPPATH . 'libraries/twilio.php');
 		$ci->twilio = new TwilioRestClient($ci->twilio_sid, $ci->twilio_token, $ci->twilio_endpoint);
-		if($id && ($flow = OpenVBX::getFlows(array('id' => $id, 'tenant_id' => $tenant_id))) && $flow[0]->values['data'])
-			$ci->twilio->request("Accounts/{$this->twilio_sid}/Calls", 'POST', array('From' => $number, 'To' => normalize_phone_to_E164($_POST['recipient']), 'Url' => site_url('twiml/start/voice/' . $id)));
+		$id = intval($_POST['flow']);
+		if(($flow = OpenVBX::getFlows(array('id' => $id, 'tenant_id' => $tenant_id))) && $flow[0]->values['data'])
+			$ci->twilio->request("Accounts/{$this->twilio_sid}/Calls", 'POST', array(
+				'From' => $_POST['number'],
+				'To' => normalize_phone_to_E164($_POST['recipient']),
+				'Url' => site_url('twiml/start/voice/' . $id)
+			));
 	}
 	$flows = OpenVBX::getFlows(array('tenant_id' => $tenant_id));
 ?>
 <style>
 	.vbx-outbound form {
-		padding:20px 5%;
+		padding: 20px 5%;
 	}
 </style>
 <div class="vbx-content-main">
