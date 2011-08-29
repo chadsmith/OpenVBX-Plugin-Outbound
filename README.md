@@ -53,12 +53,6 @@ Once installed, OUTBOUND will appear in the OpenVBX sidebar
 
 `* Use %caller% or %sender% to substitute the caller's number, %number% for the number called or %body% for the message body`
 
-## OpenVBX requirements ##
-
-This plugin requires a modified version of OpenVBX to allow for plugin hooks, subpages and cron jobs. Download the modified version from my fork [here][2].
-
-[2]: https://github.com/chadsmith/OpenVBX
-
 ## Set Cron Job ##
 
 A cron job must be set to send scheduled calls and messages every 5 minutes. If you have access to crontab, enter:
