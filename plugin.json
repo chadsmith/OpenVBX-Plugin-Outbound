@@ -19,7 +19,11 @@
 		"menu" : "Outbound",
 		"url" : "outbound/queue",
 		"script" : "queue.php",
-		"label" : "Manage Queue",
+		"label" : "Manage Queue"
+	},
+	{
+		"url" : "outbound/cron",
+		"script" : "queue.php",
 		"hook" : true
 	}]
 }
