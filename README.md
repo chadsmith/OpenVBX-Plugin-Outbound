@@ -61,4 +61,4 @@ A cron job must be set to send scheduled calls and messages every 5 minutes. If 
 
 If using cron source or a poorman's cron use:
 
-`http://YOUR_DOMAIN/hook/outbound/queue`
+`http://YOUR_DOMAIN/hook/outbound/cron`

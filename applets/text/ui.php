@@ -11,7 +11,7 @@
 		<fieldset class="vbx-input-container">
 			<select class="medium" name="number">
 <?php foreach($numbers as $number): ?>
-				<option value="<?php echo $number->phone; ?>"<?php echo $number->phone==$selected?' selected="selected" ':''; ?>><?php echo $number->name; ?></option>
+				<option value="<?php echo $number->phone; ?>"<?php echo $number->phone == $selected ? ' selected="selected" ' : ''; ?>><?php echo $number->name; ?></option>
 <?php endforeach; ?>
 			</select>
 		</fieldset>
@@ -33,10 +33,10 @@
 	<p>After sending the message, continue to the next applet</p>
 	<div class="vbx-full-pane">
 		<?php echo AppletUI::DropZone('next'); ?>
-	</div><!-- .vbx-full-pane -->
+	</div>
 <?php else: ?>
 	<div class="vbx-full-pane">
 		<h3>You do not have any phone numbers!</h3>
 	</div>
 <?php endif; ?>
-</div><!-- .vbx-applet -->
+</div>
