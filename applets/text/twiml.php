@@ -8,25 +8,19 @@ $message = AppletInstance::getValue('sms');
 if(!empty($_REQUEST['From'])) {
 	$from = normalize_phone_to_E164($_REQUEST['From']);
 	$to = normalize_phone_to_E164($_REQUEST['To']);
-
 	if(AppletInstance::getFlowType() == 'voice')
 		$message = str_replace(array('%caller%', '%number%'), array($from, $to), $message);
 	else
 		$message = str_replace(array('%sender%', '%number%', '%body%'), array($from, $to, $_REQUEST['Body']), $message);
-
-	require_once(APPPATH . 'libraries/twilio.php');
-	$ci->twilio = new TwilioRestClient($ci->twilio_sid, $ci->twilio_token, $ci->twilio_endpoint);
-	$ci->twilio->request("Accounts/{$ci->twilio_sid}/SMS/Messages", 'POST', array(
-		'From' => $number,
-		'To' => $recipient,
-		'Body' => $message
-	));
+  require_once(APPPATH . 'libraries/Services/Twilio.php');
+  $service = new Services_Twilio($ci->twilio_sid, $ci->twilio_token);
+  $service->account->sms_messages->create($number, $recipient, $message);
 }
 
-$response = new Response();
+$response = new TwimlResponse;
 
 $next = AppletInstance::getDropZoneUrl('next');
 if(!empty($next))
-	$response->addRedirect($next);
+	$response->redirect($next);
 
-$response->Respond();
+$response->respond();

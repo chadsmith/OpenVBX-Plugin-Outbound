@@ -4,25 +4,16 @@
 		set_time_limit(0);
 		$events = $ci->db->query(sprintf('SELECT id, tenant, number, type, time, callerId, data FROM outbound_queue WHERE time < %d ORDER BY time ASC', time()))->result();
 		if(count($events)) {
-			require_once(APPPATH . 'libraries/twilio.php');
+			require_once(APPPATH . 'libraries/Services/Twilio.php');
 			foreach($events as $event) {
 				$event->data = json_decode($event->data);
-				$tenant = $ci->settings->get_tenant_by_id($event->tenant);
 				$twilio_sid = $ci->settings->get('twilio_sid', $event->tenant);
 				$twilio_token = $ci->settings->get('twilio_token', $event->tenant);
-				$twilio = new TwilioRestClient($twilio_sid, $twilio_token, $ci->twilio_endpoint);
+				$service = new Services_Twilio($twilio_sid, $ci->twilio_token);
 				if('sms' == $event->type)
-					$twilio->request("Accounts/{$twilio_sid}/SMS/Messages", 'POST', array(
-						'From' => $event->callerId,
-						'To' => $event->number,
-						'Body' => $event->data->message
-					));
+				  $service->account->sms_messages->create($event->callerId, $event->number, $event->data->message);
 				else
-					$twilio->request("Accounts/{$twilio_sid}/Calls", 'POST', array(
-						'From' => $event->callerId,
-						'To' => $event->number,
-						'Url' => site_url(($tenant->url_prefix ? $tenant->url_prefix . '/' : '') . 'twiml/start/voice/' . $event->data->id)
-					));
+				  $service->account->calls->create($event->callerId, $event->number, site_url('twiml/start/voice/' . $event->data->id));
 				 $ci->db->delete('outbound_queue', array('id' => $event->id));
 			}
 		}

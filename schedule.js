@@ -7,4 +7,4 @@ $(function() {
 	});
 	$('.date').datepicker();
 	$('.time').timepicker({ showPeriod: true });
-})
+});
