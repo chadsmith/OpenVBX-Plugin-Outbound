@@ -59,7 +59,7 @@
 		height: 24px;
 		width: 24px;
 		text-indent: -999em;
-		background: transparent url(/assets/i/action-icons-sprite.png) no-repeat -68px 0;
+		background: transparent url(<?php echo asset_url('/assets/i/action-icons-sprite.png'); ?>) no-repeat -68px 0;
 	}
 </style>
 <div class="vbx-content-main">
