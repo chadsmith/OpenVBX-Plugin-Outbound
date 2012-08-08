@@ -34,7 +34,7 @@
 					'time' => $time,
 					'callerId' => $callerId,
 					'data' => json_encode(array(
-						'id' => $flow[0]->values['id'],
+						'uri' => site_url('twiml/start/voice/' . $flow[0]->values['id']),
 						'name' => $flow[0]->values['name']
 					))
 				));

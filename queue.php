@@ -13,7 +13,7 @@
 				if('sms' == $event->type)
 				  $service->account->sms_messages->create($event->callerId, $event->number, $event->data->message);
 				else
-				  $service->account->calls->create($event->callerId, $event->number, site_url('twiml/start/voice/' . $event->data->id));
+				  $service->account->calls->create($event->callerId, $event->number, $event->data->uri);
 				 $ci->db->delete('outbound_queue', array('id' => $event->id));
 			}
 		}
