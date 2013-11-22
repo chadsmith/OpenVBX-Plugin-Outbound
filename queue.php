@@ -9,7 +9,7 @@
 				$event->data = json_decode($event->data);
 				$twilio_sid = $ci->settings->get('twilio_sid', $event->tenant);
 				$twilio_token = $ci->settings->get('twilio_token', $event->tenant);
-				$service = new Services_Twilio($twilio_sid, $ci->twilio_token);
+				$service = new Services_Twilio($twilio_sid, $twilio_token);
 				if('sms' == $event->type)
 				  $service->account->sms_messages->create($event->callerId, $event->number, $event->data->message);
 				else
