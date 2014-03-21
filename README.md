@@ -59,6 +59,6 @@ A cron job must be set to send scheduled calls and messages every 5 minutes. If 
 
 `*/5  * * * * /usr/bin/php5 /PATH_TO_OPENVBX/plugins/outbound/cron.php`
 
-If using cron source or a poorman's cron use:
+If using cron source, a poorman's cron and webcron service like EasyCron.com use:
 
 `http://YOUR_DOMAIN/hook/outbound/cron`
